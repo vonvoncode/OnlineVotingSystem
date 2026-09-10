@@ -639,7 +639,6 @@ body.dark .results-total-num { color: var(--gold); }
 body.dark .result-row-top .r-name { color: var(--gold); }
 
 .result-row-top.winner .r-name::after {
-  content: " 🏆 Winner";
   font-weight: 600;
   font-size: 0.78rem;
   color: var(--success);
