@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSG 2026 General Elections — Rizal Heights National High School</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= VOTER VERIFICATION GATE ================= -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-seal">RH</div>
+    <p class="login-eyebrow">Rizal Heights National High School</p>
+    <h1 class="login-title">Voter Verification</h1>
+    <p class="login-sub">This portal is restricted to enrolled students of Rizal Heights. Verify your identity once to enter the CSG 2026 election hall — no separate sign-in is needed to cast your ballot afterward.</p>
+
+    <form id="loginForm" class="login-form" novalidate>
+      <div class="field">
+        <label for="loginId">Student ID</label>
+        <input type="text" id="loginId" placeholder="e.g. 22-04521" autocomplete="off">
+        <span class="field-error" id="err-loginId"></span>
+      </div>
+      <div class="field">
+        <label for="loginName">Full Name</label>
+        <input type="text" id="loginName" placeholder="e.g. Dela Cruz, Juan M." autocomplete="off">
+        <span class="field-error" id="err-loginName"></span>
+      </div>
+      <div class="field">
+        <label for="loginCourse">Grade &amp; Section</label>
+        <input type="text" id="loginCourse" placeholder="e.g. Grade 11 – Mabini" autocomplete="off">
+        <span class="field-error" id="err-loginCourse"></span>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Enter Election Hall</button>
+      <p class="login-note">By continuing you confirm this is your own registration — one verified voter, one ballot.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ================= MAIN APPLICATION ================= -->
+<div id="appContent" class="app-content hidden">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-seal">RH</div>
+        <div class="brand-text">
+          <span class="brand-school">Rizal Heights National High School</span>
+          <span class="brand-election">CSG 2026 General Elections</span>
+        </div>
+      </div>
+      <button id="darkToggle" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav id="siteNav" class="site-nav">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#candidates" class="nav-link">Candidates</a>
+      <a href="#vote" class="nav-link">Vote</a>
+      <a href="#results" class="nav-link">Results</a>
+      <span class="nav-voter" id="navVoterTag">Guest</span>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ================= HOME / ELECTION INFO ================= -->
+    <section id="home" class="section hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Official Ballot Portal</p>
+          <h1>CSG 2026 General Elections</h1>
+          <p class="hero-desc">Every voice on campus shapes who leads it. Review the candidates running for Central Student Government, then cast one ballot for each position before the polls close.</p>
+          <a href="#vote" class="btn btn-primary">Vote Now</a>
+        </div>
+        <div class="hero-panel">
+          <dl class="hero-facts">
+            <div class="fact">
+              <dt>School</dt>
+              <dd>Rizal Heights National High School</dd>
+            </div>
+            <div class="fact">
+              <dt>Election</dt>
+              <dd>Central Student Government (CSG) — School Year 2025–2026</dd>
+            </div>
+            <div class="fact">
+              <dt>Schedule</dt>
+              <dd>September 15, 2026 · 7:00 AM – 4:00 PM</dd>
+            </div>
+            <div class="fact">
+              <dt>Venue</dt>
+              <dd>Online — accessible from any verified student device</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CANDIDATES ================= -->
+    <section id="candidates" class="section">
+      <div class="container">
+        <h2 class="section-title">Meet the Candidates</h2>
+        <p class="section-sub">Tap a position to expand the slate running for it.</p>
+        <div id="candidateAccordion" class="accordion"></div>
+      </div>
+    </section>
+
+    <!-- ================= VOTING FORM ================= -->
+    <section id="vote" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Cast Your Vote</h2>
+        <p class="section-sub">Your registration is already verified — just choose one candidate per position.</p>
+
+        <div class="voter-summary" id="voterSummary"></div>
+
+        <form id="voteForm" class="vote-form" novalidate>
+          <div id="voteGroups"></div>
+
+          <div class="field-error" id="err-vote"></div>
+
+          <div class="vote-actions">
+            <button type="submit" class="btn btn-primary btn-block" id="submitVoteBtn">Submit Vote</button>
+            <button type="button" class="btn btn-ghost btn-block" id="resetElectionBtn">Reset Demo Election</button>
+          </div>
+        </form>
+
+        <div id="confirmation" class="confirmation hidden">
+          <div class="confirmation-icon">✓</div>
+          <h3>Your vote has been successfully recorded.</h3>
+          <p>Thank you for participating in the CSG 2026 General Elections. Here is a summary of your ballot:</p>
+          <ul id="confirmationList" class="confirmation-list"></ul>
+          <a href="#results" class="btn btn-primary">View Live Results</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RESULTS ================= -->
+    <section id="results" class="section">
+      <div class="container">
+        <div class="results-header">
+          <div>
+            <h2 class="section-title">Election Results</h2>
+            <p class="section-sub">Live tally, updated instantly as ballots are submitted.</p>
+          </div>
+          <div class="results-total">
+            <span class="results-total-num" id="totalVotesCount">0</span>
+            <span class="results-total-label">ballots cast</span>
+          </div>
+        </div>
+        <div id="resultsAccordion" class="accordion"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Rizal Heights National High School · Central Student Government Commission on Elections.</p>
+      <p class="footer-fine">Prototype voting system built for laboratory purposes with HTML, CSS &amp; JavaScript only.</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ================= CONFIRM-BEFORE-SUBMIT MODAL ================= -->
+<div id="confirmModal" class="modal hidden">
+  <div class="modal-card">
+    <h3>Confirm your ballot</h3>
+    <p>Once submitted, your vote cannot be changed. Please review your selections below.</p>
+    <ul id="modalList" class="confirmation-list"></ul>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="modalCancel">Go Back</button>
+      <button type="button" class="btn btn-primary" id="modalConfirm">Confirm &amp; Submit</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
