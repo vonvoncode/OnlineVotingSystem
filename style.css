@@ -15,6 +15,7 @@
   --line: #e2ddce;
   --success: #2e7d32;
   --danger: #b3261e;
+  --on-navy: #f4f1e8;
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -231,7 +232,7 @@ body.dark .btn-ghost:hover { border-color: var(--gold); }
   height: 42px;
   flex-shrink: 0;
   border-radius: 50%;
-  background-color: var(--cream);
+  background-color: var(--on-navy);
   color: var(--navy);
   font-family: var(--font-serif);
   font-weight: 700;
@@ -250,7 +251,7 @@ body.dark .btn-ghost:hover { border-color: var(--gold); }
 }
 
 .brand-election {
-  color: var(--cream);
+  color: var(--on-navy);
   font-family: var(--font-serif);
   font-size: 1.15rem;
   font-weight: 700;
@@ -259,7 +260,7 @@ body.dark .btn-ghost:hover { border-color: var(--gold); }
 .icon-btn {
   background: transparent;
   border: 1.5px solid rgba(244, 241, 232, 0.3);
-  color: var(--cream);
+  color: var(--on-navy);
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -286,7 +287,7 @@ body.dark .btn-ghost:hover { border-color: var(--gold); }
 .nav-toggle span {
   display: block;
   height: 2px;
-  background-color: var(--cream);
+  background-color: var(--on-navy);
   border-radius: 2px;
 }
 
@@ -373,7 +374,7 @@ body.dark .btn-ghost:hover { border-color: var(--gold); }
 
 .fact dd {
   margin: 0;
-  color: var(--cream);
+  color: var(--on-navy);
   font-size: 0.95rem;
 }
 
