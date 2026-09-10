@@ -1,11 +1,3 @@
-/* =========================================================
-   CSG 2026 GENERAL ELECTIONS — APPLICATION LOGIC
-   Vanilla JavaScript only (HTML / CSS / JS restriction)
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   1. DATA: positions, candidates, vote counts
-   --------------------------------------------------------- */
 const positions = ["President", "Vice President", "Secretary", "Treasurer"];
 
 const candidates = [
@@ -26,7 +18,6 @@ const candidates = [
   { id: "treC", position: "Treasurer", name: "Winona Herrera", party: "Independent", platform: "Audit past org expenses and share findings publicly.", img: "files/candidate12.jpg" },
 ];
 
-// Vote counts — seeded with a small starting tally so Results isn't empty on load
 let votes = {
   presA: 4, presB: 3, presC: 1,
   vpA: 3, vpB: 4, vpC: 2,
@@ -38,9 +29,6 @@ const seedVotes = { ...votes };
 let currentVoter = null;
 let hasVoted = false;
 
-/* ---------------------------------------------------------
-   2. LOGIN / VOTER VERIFICATION
-   --------------------------------------------------------- */
 const loginForm = document.getElementById("loginForm");
 const loginScreen = document.getElementById("loginScreen");
 const appContent = document.getElementById("appContent");
@@ -89,9 +77,6 @@ function firstName(fullName) {
   return fullName.split(/[\s,]+/)[0] || fullName;
 }
 
-/* ---------------------------------------------------------
-   3. NAVIGATION (mobile toggle + smooth scroll handled by CSS)
-   --------------------------------------------------------- */
 const navToggle = document.getElementById("navToggle");
 const siteNav = document.getElementById("siteNav");
 
@@ -107,9 +92,6 @@ siteNav.querySelectorAll(".nav-link").forEach(function (link) {
   });
 });
 
-/* ---------------------------------------------------------
-   4. DARK MODE
-   --------------------------------------------------------- */
 const darkToggle = document.getElementById("darkToggle");
 
 darkToggle.addEventListener("click", function () {
@@ -117,9 +99,6 @@ darkToggle.addEventListener("click", function () {
   darkToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
 });
 
-/* ---------------------------------------------------------
-   5. BUILD CANDIDATE ACCORDION
-   --------------------------------------------------------- */
 const candidateAccordion = document.getElementById("candidateAccordion");
 
 function buildCandidateAccordion() {
@@ -169,9 +148,6 @@ function toggleAccordion(item) {
   item.classList.toggle("open");
 }
 
-/* ---------------------------------------------------------
-   6. VOTER SUMMARY + BUILD VOTING FORM
-   --------------------------------------------------------- */
 const voterSummary = document.getElementById("voterSummary");
 const voteGroups = document.getElementById("voteGroups");
 
@@ -212,7 +188,6 @@ function buildVoteGroups() {
     voteGroups.appendChild(wrap);
   });
 
-  // Highlight selected option + track selection styling
   voteGroups.querySelectorAll("input[type='radio']").forEach(function (radio) {
     radio.addEventListener("change", function () {
       const groupWrap = radio.closest(".vote-group");
@@ -224,9 +199,6 @@ function buildVoteGroups() {
   });
 }
 
-/* ---------------------------------------------------------
-   7. VOTE FORM SUBMISSION + VALIDATION + MODAL CONFIRMATION
-   --------------------------------------------------------- */
 const voteForm = document.getElementById("voteForm");
 const errVote = document.getElementById("err-vote");
 const confirmModal = document.getElementById("confirmModal");
@@ -292,7 +264,6 @@ modalConfirm.addEventListener("click", function () {
 });
 
 function finalizeVote(selections) {
-  // Record votes
   Object.keys(selections).forEach(function (position) {
     const candidateId = selections[position];
     votes[candidateId] = (votes[candidateId] || 0) + 1;
@@ -300,7 +271,6 @@ function finalizeVote(selections) {
 
   hasVoted = true;
 
-  // Build confirmation summary
   confirmationList.innerHTML = "";
   positions.forEach(function (position) {
     const candidateId = selections[position];
@@ -318,9 +288,6 @@ function finalizeVote(selections) {
   confirmationBox.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-/* ---------------------------------------------------------
-   8. RESET ELECTION (demo/testing challenge)
-   --------------------------------------------------------- */
 const resetElectionBtn = document.getElementById("resetElectionBtn");
 
 resetElectionBtn.addEventListener("click", function () {
@@ -342,9 +309,6 @@ resetElectionBtn.addEventListener("click", function () {
   renderResults();
 });
 
-/* ---------------------------------------------------------
-   9. RESULTS ACCORDION + PROGRESS BARS + WINNER HIGHLIGHT
-   --------------------------------------------------------- */
 const resultsAccordion = document.getElementById("resultsAccordion");
 const totalVotesCount = document.getElementById("totalVotesCount");
 
@@ -401,7 +365,6 @@ function renderResults() {
 
   totalVotesCount.textContent = grandTotal;
 
-  // Animate bar widths on next frame
   requestAnimationFrame(function () {
     resultsAccordion.querySelectorAll(".bar-fill").forEach(function (bar) {
       bar.style.width = bar.getAttribute("data-target") + "%";
@@ -415,9 +378,6 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-/* ---------------------------------------------------------
-   10. INITIALIZE APP
-   --------------------------------------------------------- */
 buildCandidateAccordion();
 buildVoteGroups();
 renderResults();
